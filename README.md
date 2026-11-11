@@ -25,13 +25,24 @@
 
 <img src="assets/sec-stack.svg" alt="$ cat stack.txt" width="100%">
 
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=python,java,js,html,css,nodejs,fastapi,mysql,r,git&theme=dark&perline=10" alt="Python, Java, JavaScript, HTML, CSS, Node.js, FastAPI, SQL (MySQL), R, Git">
-</p>
-<p align="center">
-  <img src="https://img.shields.io/badge/Cisco_Packet_Tracer-1BA0D7?style=for-the-badge&logo=cisco&logoColor=white" alt="Cisco Packet Tracer">
-  <img src="https://img.shields.io/badge/Wireshark-1679A7?style=for-the-badge&logo=wireshark&logoColor=white" alt="Wireshark">
-</p>
+<table align="center">
+  <tr>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=python" width="48" height="48" alt="Python"><br><sub><b>Python</b></sub></td>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=java" width="48" height="48" alt="Java"><br><sub><b>Java</b></sub></td>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=js" width="48" height="48" alt="JavaScript"><br><sub><b>JavaScript</b></sub></td>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=html" width="48" height="48" alt="HTML"><br><sub><b>HTML</b></sub></td>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=css" width="48" height="48" alt="CSS"><br><sub><b>CSS</b></sub></td>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=nodejs" width="48" height="48" alt="Node.js"><br><sub><b>Node.js</b></sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=fastapi" width="48" height="48" alt="FastAPI"><br><sub><b>FastAPI</b></sub></td>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=mysql" width="48" height="48" alt="SQL"><br><sub><b>SQL</b></sub></td>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=r" width="48" height="48" alt="R"><br><sub><b>R</b></sub></td>
+    <td align="center" width="96"><img src="https://skillicons.dev/icons?i=git" width="48" height="48" alt="Git"><br><sub><b>Git</b></sub></td>
+    <td align="center" width="96"><img src="https://cdn.simpleicons.org/cisco/1BA0D7" width="48" height="48" alt="Packet Tracer"><br><sub><b>Packet Tracer</b></sub></td>
+    <td align="center" width="96"><img src="https://cdn.simpleicons.org/wireshark/1679A7" width="48" height="48" alt="Wireshark"><br><sub><b>Wireshark</b></sub></td>
+  </tr>
+</table>
 
 <img src="assets/sec-stats.svg" alt="$ git log --stats" width="100%">
 
