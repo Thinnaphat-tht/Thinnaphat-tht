@@ -138,60 +138,79 @@ def roadmap():
     ]
     tags = {"clear": ("CLEAR", GREEN), "next": ("NEXT ▶", AMBER), "locked": ("LOCKED", MUTED),
             "goal": ("GOAL ★", AMBER), "side": ("???", PINK)}
-    done = "M130 190 H1080 V420 H970"
-    for d, col in (("M970 420 H130", MUTED), ("M1080 420 V610 H970", PINK)):
-        b.append(f'<path d="{d}" fill="none" stroke="{LINE}" stroke-width="10"/>'
-                 f'<path d="{d}" fill="none" stroke="{col}" stroke-width="3" stroke-dasharray="6 10"/>')
-    b.append(f'<path d="{done}" fill="none" stroke="{LINE}" stroke-width="10"/>'
-             f'<path d="{done}" fill="none" stroke="{GREEN}" stroke-width="4" stroke-dasharray="14 6" '
-             f'style="animation:dash 1s linear infinite"/>')
-    for x, y, name, sub, col, state in stages:
-        cls = ' class="pulse"' if state in ("next", "side") else ""
-        inner = "" if state == "locked" else f'<rect x="{x-14}" y="{y-14}" width="28" height="28" fill="{col}"/>'
-        b.append(f'<g{cls}><rect x="{x-26}" y="{y-26}" width="52" height="52" fill="{PANEL}" stroke="{col}" stroke-width="4"/>{inner}</g>')
-        b.append(f'<text x="{x}" y="{y+58}" fill="{col if state != "locked" else TXT}" font-size="19" text-anchor="middle">{esc(name)}</text>')
-        b.append(f'<text x="{x}" y="{y+82}" fill="{MUTED}" font-size="15" text-anchor="middle">{esc(sub)}</text>')
+    # เส้นทางกระโดดเป็นโค้งระหว่างเกาะ (จุดยอดสูงกว่าเกาะ 70px)
+    def hops(*pts):
+        d = f"M{pts[0][0]} {pts[0][1]}"
+        for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+            if x0 == x1:  # ลงแถวล่าง: โค้งออกด้านขวา
+                d += f" Q{x0+120} {(y0+y1)/2} {x1} {y1}"
+            else:
+                d += f" Q{(x0+x1)/2} {min(y0, y1)-70} {x1} {y1}"
+        return d
+    done = hops((130, 190), (410, 190), (690, 190), (970, 190), (970, 420))
+    for d, col in ((hops((970, 420), (690, 420), (410, 420), (130, 420)), MUTED),
+                   (hops((970, 420), (970, 610)), PINK)):
+        b.append(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" opacity=".7"/>')
+    b.append(f'<path d="{done}" fill="none" stroke="{GREEN}" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" '
+             f'style="animation:dash 1.2s linear infinite"/>')
+    for i, (x, y, name, sub, col, state) in enumerate(stages):
+        dim = state == "locked"
+        grass = MUTED if dim else col
+        dirt, dark = ("#30363D", "#21262D") if dim else ("#6E4A2E", "#4A3326")
+        # เกาะลอยฟ้าแบบพิกเซล: หญ้า 2 ชั้น ดิน 3 ชั้นเรียวลง ลอยขึ้นลงคนละจังหวะ
+        isle = (f'<rect x="{x-50}" y="{y-8}" width="100" height="10" fill="{grass}"/>'
+                f'<rect x="{x-50}" y="{y+2}" width="100" height="4" fill="{grass}" opacity=".6"/>'
+                f'<rect x="{x-42}" y="{y+6}" width="84" height="12" fill="{dirt}"/>'
+                f'<rect x="{x-28}" y="{y+18}" width="56" height="10" fill="{dark}"/>'
+                f'<rect x="{x-12}" y="{y+28}" width="24" height="8" fill="{dark}"/>')
+        if state == "goal":  # ธงบนเกาะเป้าหมาย
+            isle += (f'<rect x="{x+26}" y="{y-58}" width="4" height="50" fill="{TXT}"/>'
+                     f'<rect x="{x+30}" y="{y-58}" width="26" height="16" fill="{AMBER}"/>')
+        if state == "side":
+            isle += f'<text x="{x}" y="{y-16}" fill="{PINK}" font-size="30" text-anchor="middle">?</text>'
+        cls = "pulse" if state in ("next", "side") else ""
+        b.append(f'<g class="{cls}" style="opacity:{0.55 if dim else 1}"><g style="animation:bob {2+i%3*0.4}s ease-in-out {i*0.3}s infinite">{isle}</g></g>')
+        b.append(f'<text x="{x}" y="{y+64}" fill="{TXT if dim else col}" font-size="19" text-anchor="middle">{esc(name)}</text>')
+        b.append(f'<text x="{x}" y="{y+88}" fill="{MUTED}" font-size="15" text-anchor="middle">{esc(sub)}</text>')
         tag, tcol = tags[state]
-        b.append(f'<rect x="{x-34}" y="{y-52}" width="68" height="18" fill="{BG}"/>'
-                 f'<text x="{x}" y="{y-38}" fill="{tcol}" font-size="13" text-anchor="middle">{tag}</text>')
-    # ตัวละครเดินจาก START มาหยุดที่ด่านถัดไป (ฝึกงาน) แล้ววนใหม่
-    b.append(f'<g>{mascot("front", -30, -134, 60, 69)}<animateMotion dur="8s" repeatCount="indefinite" path="{done}" '
+        b.append(f'<text x="{x-58}" y="{y+5}" fill="{tcol}" font-size="13" text-anchor="end">{tag}</text>')
+    # CREAMY กระโดดข้ามเกาะจาก START มาหยุดที่ด่านถัดไป (ฝึกงาน) แล้ววนใหม่
+    b.append(f'<g>{mascot("front", -30, -76, 60, 69)}<animateMotion dur="8s" repeatCount="indefinite" path="{done}" '
              f'keyPoints="0;0;1;1" keyTimes="0;0.08;0.85;1" calcMode="linear"/></g>')
     return svg(W, H, "".join(b), "Career roadmap: cleared Start 2025, study sites, Trading Cooldown, Laan Chuay Aan; "
                                  "next internship (Backend/AI), then level up, co-op, goal Junior AI/Backend Engineer; side quest cybersecurity")
 
 
-# ---------- 4. การ์ดผลงานแบบไอเทมเกม ----------
-def card(name, rarity, rcol, lines, tags):
+# ---------- 4. การ์ดผลงานแบบหน้าต่าง terminal ----------
+def card(name, repo, rcol, cmd, lines, tags):
     W, H = 580, 300
-    b = [f'<rect x="6" y="6" width="{W-12}" height="{H-12}" fill="{BG}" stroke="{rcol}" stroke-width="4" '
-         f'stroke-dasharray="20 8" style="animation:dash 1.5s linear infinite"/>',
-         f'<rect x="20" y="20" width="{W-40}" height="44" fill="{PANEL}"/>',
-         f'<text x="36" y="50" fill="{TXT}" font-size="22">{esc(name)}</text>',
-         f'<text x="{W-36}" y="50" fill="{rcol}" font-size="15" text-anchor="end" class="pulse">★ {rarity}</text>']
-    y = 104
-    for i, ln in enumerate(lines):
-        b.append(f'<g class="late" style="animation:fadein .01s {0.3+i*0.35}s forwards">'
-                 f'<text x="36" y="{y}" fill="{GREEN}" font-size="17">&gt;</text>'
-                 f'<text x="58" y="{y}" fill="{TXT}" font-size="17">{esc(ln)}</text></g>')
-        y += 32
-    x = 36
-    for t in tags:
-        w = len(t) * 15 * CW + 20
-        b.append(f'<rect x="{x}" y="{H-62}" width="{w}" height="28" fill="none" stroke="{LINE}"/>'
-                 f'<text x="{x+w/2}" y="{H-43}" fill="{BLUE}" font-size="15" text-anchor="middle">{esc(t)}</text>')
-        x += w + 10
-    b.append(f'<text x="{W-36}" y="{H-43}" fill="{AMBER}" font-size="15" text-anchor="end">OPEN ▶</text>')
+    b = [f'<rect x="1" y="1" width="{W-2}" height="{H-2}" rx="12" fill="{BG}" stroke="{LINE}" stroke-width="2"/>',
+         f'<path d="M1 13 a12 12 0 0 1 12 -12 h{W-26} a12 12 0 0 1 12 12 v31 h-{W-2} z" fill="{PANEL}"/>',
+         f'<rect x="1" y="44" width="{W-2}" height="3" fill="{rcol}"/>',
+         f'<circle cx="24" cy="23" r="6" fill="{RED}"/><circle cx="44" cy="23" r="6" fill="{AMBER}"/>'
+         f'<circle cx="64" cy="23" r="6" fill="{GREEN}"/>',
+         f'<text x="{W/2}" y="28" fill="{MUTED}" font-size="14" text-anchor="middle">~/{esc(repo)}</text>',
+         typed_line(26, 84, cmd, TXT, 18, 0.3, max(0.6, len(cmd) * 0.05), prompt=True),
+         f'<text x="26" y="120" fill="{rcol}" font-size="22">{esc(name)}</text>']
+    t, y = 0.6 + len(cmd) * 0.05, 154
+    for ln in lines:
+        b.append(f'<g class="late" style="animation:fadein .01s {t}s forwards">'
+                 f'<text x="26" y="{y}" fill="{TXT}" font-size="16">{esc(ln)}</text></g>')
+        t += 0.3
+        y += 28
+    b.append(f'<text x="26" y="{H-26}" fill="{BLUE}" font-size="14">{esc("  ".join("[" + x + "]" for x in tags))}</text>')
+    b.append(f'<text x="{W-26}" y="{H-26}" fill="{AMBER}" font-size="14" text-anchor="end">OPEN ▶</text>')
+    b.append(f'<rect x="{26 + (len(cmd) + 3) * 18 * CW}" y="70" width="10" height="18" fill="{TXT}" class="cur"/>')
     return svg(W, H, "".join(b), name)
 
 
 files = {
     "hero.svg": hero(),
     "roadmap.svg": roadmap(),
-    "card-laan.svg": card("Laan Chuay Aan", "LEGENDARY", PINK,
+    "card-laan.svg": card("Laan Chuay Aan", "laan-chuay-aan", PINK, "cat about.txt",
                           ["Photo of a Thai letter in, plain summary out", "Flags letters that look like scams", "51 automated tests passing"],
                           ["Python", "FastAPI", "Gemini", "LINE"]),
-    "card-cooldown.svg": card("Trading Cooldown", "EPIC", BLUE,
+    "card-cooldown.svg": card("Trading Cooldown", "trading-cooldown", BLUE, "cat about.txt",
                               ["Countdown above sold-out villagers", "Reads vanilla restock mechanics", "No mods required"],
                               ["Minecraft", "mcfunction", "v0.2.0"]),
     "sec-roadmap.svg": section("./roadmap --world 1", "where I've been, where I'm heading"),
