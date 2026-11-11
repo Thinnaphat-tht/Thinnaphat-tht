@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="580" height="300" viewBox="0 0 580 300" font-family="Consolas, 'DejaVu Sans Mono', 'Courier New', monospace" role="img"><title>Laan Chuay Aan</title><style>
+@keyframes wipe { to { transform: scaleX(0); } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes fadein { to { opacity: 1; } }
+@keyframes bob { 50% { transform: translateY(-6px); } }
+@keyframes fill { to { transform: scaleX(1); } }
+@keyframes dash { to { stroke-dashoffset: -40; } }
+@keyframes pulse { 50% { opacity: .35; } }
+.cur { animation: blink 1s steps(1) infinite; }
+.bob { animation: bob 1.2s ease-in-out infinite; }
+.late { opacity: 0; }
+.pulse { animation: pulse 1.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; opacity: 1 !important; transform: none !important; } }
+</style><rect x="6" y="6" width="568" height="288" fill="#0D1117" stroke="#F778BA" stroke-width="4" stroke-dasharray="20 8" style="animation:dash 1.5s linear infinite"/><rect x="20" y="20" width="540" height="44" fill="#161B22"/><text x="36" y="50" fill="#C9D1D9" font-size="22">Laan Chuay Aan</text><text x="544" y="50" fill="#F778BA" font-size="15" text-anchor="end" class="pulse">★ LEGENDARY</text><g class="late" style="animation:fadein .01s 0.3s forwards"><text x="36" y="104" fill="#3FB950" font-size="17">&gt;</text><text x="58" y="104" fill="#C9D1D9" font-size="17">Photo of a Thai letter in, plain summary out</text></g><g class="late" style="animation:fadein .01s 0.6499999999999999s forwards"><text x="36" y="136" fill="#3FB950" font-size="17">&gt;</text><text x="58" y="136" fill="#C9D1D9" font-size="17">Flags letters that look like scams</text></g><g class="late" style="animation:fadein .01s 1.0s forwards"><text x="36" y="168" fill="#3FB950" font-size="17">&gt;</text><text x="58" y="168" fill="#C9D1D9" font-size="17">51 automated tests passing</text></g><rect x="36" y="238" width="69.5" height="28" fill="none" stroke="#30363D"/><text x="70.75" y="257" fill="#58A6FF" font-size="15" text-anchor="middle">Python</text><rect x="115.5" y="238" width="77.75" height="28" fill="none" stroke="#30363D"/><text x="154.375" y="257" fill="#58A6FF" font-size="15" text-anchor="middle">FastAPI</text><rect x="203.25" y="238" width="69.5" height="28" fill="none" stroke="#30363D"/><text x="238.0" y="257" fill="#58A6FF" font-size="15" text-anchor="middle">Gemini</text><rect x="282.75" y="238" width="53.0" height="28" fill="none" stroke="#30363D"/><text x="309.25" y="257" fill="#58A6FF" font-size="15" text-anchor="middle">LINE</text><text x="544" y="257" fill="#F2CC60" font-size="15" text-anchor="end">OPEN ▶</text></svg>
