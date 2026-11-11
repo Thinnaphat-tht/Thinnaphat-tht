@@ -2,7 +2,7 @@
 
 <img src="assets/sec-roadmap.svg" alt="$ ./roadmap --world 1" width="100%">
 
-<img src="assets/roadmap.svg" alt="Roadmap: Start (joined ICT Mahidol, 2025) → Network labs → Study sites ×7 → Trading Cooldown → Laan Chuay Aan → Next: software internship" width="100%">
+<img src="assets/roadmap.svg" alt="Career roadmap: cleared Start (ICT Mahidol, 2025), study sites, Trading Cooldown, Laan Chuay Aan. Next: Backend/AI internship, level up (SQL, Java, Python APIs), co-op, goal Junior AI/Backend Engineer. Side quest: cybersecurity" width="100%">
 
 <img src="assets/sec-projects.svg" alt="$ ls ~/projects --featured" width="100%">
 

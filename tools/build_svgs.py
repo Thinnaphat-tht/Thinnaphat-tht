@@ -124,38 +124,48 @@ def section(cmd, comment):
 
 # ---------- 3. Roadmap แบบด่านเกม ----------
 def roadmap():
-    W, H = 1200, 560
+    W, H = 1200, 720
     b = [f'<rect width="{W}" height="{H}" rx="14" fill="{BG}" stroke="{LINE}"/>']
     for gx in range(30, W, 30):  # จุดกริดพื้นหลัง
         for gy in range(30, H, 30):
             b.append(f'<rect x="{gx}" y="{gy}" width="2" height="2" fill="{LINE}"/>')
-    b.append(f'<text x="40" y="58" fill="{AMBER}" font-size="26">▶ WORLD 1 — THE ROADMAP</text>')
-    b.append(f'<text x="{W-40}" y="58" fill="{MUTED}" font-size="18" text-anchor="end">5 / 6 STAGES CLEAR</text>')
-    stages = [  # (x, y, ชื่อ, รายละเอียด, สี, ผ่านแล้ว)
-        (130, 190, "START", "Joined ICT Mahidol · 2025", GREEN, True),
-        (480, 190, "NETWORK LABS", "Packet Tracer · Wireshark", BLUE, True),
-        (870, 190, "STUDY SITES ×7", "Exam guides for classmates", BLUE, True),
-        (870, 410, "TRADING COOLDOWN", "Minecraft data pack v0.2.0", PINK, True),
-        (480, 410, "LAAN CHUAY AAN", "LINE bot for elders", PINK, True),
-        (130, 410, "NEXT: ???", "Software internship", AMBER, False),
+    b.append(f'<text x="40" y="58" fill="{AMBER}" font-size="26">▶ WORLD 1 — CAREER ROADMAP</text>')
+    b.append(f'<text x="{W-40}" y="58" fill="{MUTED}" font-size="18" text-anchor="end">MAIN QUEST: AI / BACKEND</text>')
+    # สถานะ: clear = ผ่านแล้ว, next = ด่านถัดไป, locked = ยังไม่ถึง, goal = เป้าหมาย, side = ทางแยกที่ยังไม่ตัดสินใจ
+    stages = [  # (x, y, ชื่อ, รายละเอียด, สี, สถานะ)
+        (130, 190, "START", "Joined ICT Mahidol · 2025", GREEN, "clear"),
+        (410, 190, "STUDY SITES ×7", "Exam guides for classmates", BLUE, "clear"),
+        (690, 190, "TRADING COOLDOWN", "Minecraft data pack", BLUE, "clear"),
+        (970, 190, "LAAN CHUAY AAN", "AI LINE bot (Gemini)", PINK, "clear"),
+        (970, 420, "INTERNSHIP", "Backend / AI · Year 2", AMBER, "next"),
+        (690, 420, "LEVEL UP", "SQL · Java · Python APIs", MUTED, "locked"),
+        (410, 420, "CO-OP", "4 months · Year 4", MUTED, "locked"),
+        (130, 420, "JUNIOR ENGINEER", "AI / Backend", AMBER, "goal"),
+        (970, 610, "SIDE QUEST: ???", "Cybersecurity · try CTFs", PINK, "side"),
     ]
-    path = "M130 190 H1050 V410 H130"
-    b.append(f'<path d="{path}" fill="none" stroke="{LINE}" stroke-width="10"/>')
-    b.append(f'<path d="{path}" fill="none" stroke="{GREEN}" stroke-width="4" stroke-dasharray="14 6" '
+    tags = {"clear": ("CLEAR", GREEN), "next": ("NEXT ▶", AMBER), "locked": ("LOCKED", MUTED),
+            "goal": ("GOAL ★", AMBER), "side": ("???", PINK)}
+    done = "M130 190 H1080 V420 H970"
+    for d, col in (("M970 420 H130", MUTED), ("M1080 420 V610 H970", PINK)):
+        b.append(f'<path d="{d}" fill="none" stroke="{LINE}" stroke-width="10"/>'
+                 f'<path d="{d}" fill="none" stroke="{col}" stroke-width="3" stroke-dasharray="6 10"/>')
+    b.append(f'<path d="{done}" fill="none" stroke="{LINE}" stroke-width="10"/>'
+             f'<path d="{done}" fill="none" stroke="{GREEN}" stroke-width="4" stroke-dasharray="14 6" '
              f'style="animation:dash 1s linear infinite"/>')
-    for x, y, name, sub, col, done in stages:
-        cls = "" if done else ' class="pulse"'
-        b.append(f'<g{cls}><rect x="{x-26}" y="{y-26}" width="52" height="52" fill="{PANEL}" stroke="{col}" stroke-width="4"/>'
-                 f'<rect x="{x-14}" y="{y-14}" width="28" height="28" fill="{col}"/></g>')
-        b.append(f'<text x="{x}" y="{y+58}" fill="{col}" font-size="19" text-anchor="middle">{esc(name)}</text>')
+    for x, y, name, sub, col, state in stages:
+        cls = ' class="pulse"' if state in ("next", "side") else ""
+        inner = "" if state == "locked" else f'<rect x="{x-14}" y="{y-14}" width="28" height="28" fill="{col}"/>'
+        b.append(f'<g{cls}><rect x="{x-26}" y="{y-26}" width="52" height="52" fill="{PANEL}" stroke="{col}" stroke-width="4"/>{inner}</g>')
+        b.append(f'<text x="{x}" y="{y+58}" fill="{col if state != "locked" else TXT}" font-size="19" text-anchor="middle">{esc(name)}</text>')
         b.append(f'<text x="{x}" y="{y+82}" fill="{MUTED}" font-size="15" text-anchor="middle">{esc(sub)}</text>')
-        tag = "CLEAR" if done else "LOCKED"
-        b.append(f'<rect x="{x-30}" y="{y-52}" width="60" height="18" fill="{BG}"/>'
-                 f'<text x="{x}" y="{y-38}" fill="{GREEN if done else AMBER}" font-size="13" text-anchor="middle">{tag}</text>')
-    # ตัวละครเดินตามเส้นทาง แล้ววนใหม่
-    b.append(f'<g>{sprite(-24, -92, 6)}<animateMotion dur="9s" repeatCount="indefinite" path="{path}" '
-             f'keyPoints="0;0;1;1" keyTimes="0;0.08;0.92;1" calcMode="linear"/></g>')
-    return svg(W, H, "".join(b), "Roadmap: Start 2025, network labs, study sites, Trading Cooldown, Laan Chuay Aan, next internship")
+        tag, tcol = tags[state]
+        b.append(f'<rect x="{x-34}" y="{y-52}" width="68" height="18" fill="{BG}"/>'
+                 f'<text x="{x}" y="{y-38}" fill="{tcol}" font-size="13" text-anchor="middle">{tag}</text>')
+    # ตัวละครเดินจาก START มาหยุดที่ด่านถัดไป (ฝึกงาน) แล้ววนใหม่
+    b.append(f'<g>{sprite(-24, -112, 6)}<animateMotion dur="8s" repeatCount="indefinite" path="{done}" '
+             f'keyPoints="0;0;1;1" keyTimes="0;0.08;0.85;1" calcMode="linear"/></g>')
+    return svg(W, H, "".join(b), "Career roadmap: cleared Start 2025, study sites, Trading Cooldown, Laan Chuay Aan; "
+                                 "next internship (Backend/AI), then level up, co-op, goal Junior AI/Backend Engineer; side quest cybersecurity")
 
 
 # ---------- 4. การ์ดผลงานแบบไอเทมเกม ----------
@@ -191,7 +201,7 @@ files = {
     "card-cooldown.svg": card("Trading Cooldown", "EPIC", BLUE,
                               ["Countdown above sold-out villagers", "Reads vanilla restock mechanics", "No mods required"],
                               ["Minecraft", "mcfunction", "v0.2.0"]),
-    "sec-roadmap.svg": section("./roadmap --world 1", "where I've been, where I'm going"),
+    "sec-roadmap.svg": section("./roadmap --world 1", "where I've been, where I'm heading"),
     "sec-projects.svg": section("ls ~/projects --featured", "things I shipped"),
     "sec-study.svg": section("open ./study-sites", "free exam prep for ICT courses"),
     "sec-stack.svg": section("cat stack.txt", "tools I use"),
