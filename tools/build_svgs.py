@@ -1,6 +1,7 @@
 # สร้างภาพ SVG ขยับได้ สำหรับหน้าโปรไฟล์ GitHub (ธีม terminal + pixel game)
-import pathlib, sys
+import base64, pathlib, sys
 
+HERE = pathlib.Path(__file__).parent
 OUT = pathlib.Path(sys.argv[1])
 OUT.mkdir(parents=True, exist_ok=True)
 
@@ -15,20 +16,12 @@ def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def sprite(x, y, px=6, cls=""):
-    # ตัวละครพิกเซล 8x8 (หุ่นยนต์ตัวเล็ก ออกแบบเอง)
-    grid = ["..AAAA..",
-            ".A....A.",
-            ".A.G.GA.",
-            ".A....A.",
-            "..AAAA..",
-            ".BBBBBB.",
-            ".B.BB.B.",
-            "..B..B.."]
-    col = {"A": AMBER, "G": GREEN, "B": BLUE}
-    r = [f'<rect x="{x+i*px}" y="{y+j*px}" width="{px}" height="{px}" fill="{col[c]}"/>'
-         for j, row in enumerate(grid) for i, c in enumerate(row) if c != "."]
-    return f'<g class="{cls}">' + "".join(r) + "</g>"
+def mascot(name, x, y, w, h, cls=""):
+    # CREAMY.exe มาสคอตของเจ้าของ ตัดจาก D:\Portfolio\CREAMY.exe Character Concept Sheet.png
+    # ฝังเป็น base64 เพราะ GitHub ไม่โหลดรูปภายนอกที่อยู่ใน SVG
+    data = base64.b64encode((HERE / f"creamy-{name}.png").read_bytes()).decode()
+    return (f'<g class="{cls}"><image x="{x}" y="{y}" width="{w}" height="{h}" '
+            f'style="image-rendering:pixelated" href="data:image/png;base64,{data}"/></g>')
 
 
 def typed_line(x, y, text, color, size, start, dur, prompt=False):
@@ -104,9 +97,9 @@ def hero():
              f'style="transform-box:fill-box;transform-origin:left;transform:scaleX(0);animation:fill 1.6s steps(10) {t}s forwards"/>'
              f'<rect x="590" y="{y-18}" width="12" height="22" fill="{TXT}" class="cur"/></g>')
     # ตัวละครพิกเซลด้านขวา
-    b.append(f'<g transform="translate(985 150)">{sprite(0, 0, 18, "bob")}</g>')
-    b.append(f'<text x="1057" y="350" fill="{MUTED}" font-size="15" text-anchor="middle">PLAYER 1</text>')
-    b.append(f'<text x="1057" y="374" fill="{AMBER}" font-size="15" text-anchor="middle">LV.2</text>')
+    b.append(mascot("coding", 890, 70, 290, 279, "bob"))
+    b.append(f'<text x="1035" y="378" fill="{MUTED}" font-size="15" text-anchor="middle">PLAYER 1: CREAMY.exe</text>')
+    b.append(f'<text x="1035" y="402" fill="{AMBER}" font-size="15" text-anchor="middle">LV.2</text>')
     return svg(W, H, "".join(b), "Terminal: Thinnaphat, Digital Science & Technology, ICT Mahidol")
 
 
@@ -162,7 +155,7 @@ def roadmap():
         b.append(f'<rect x="{x-34}" y="{y-52}" width="68" height="18" fill="{BG}"/>'
                  f'<text x="{x}" y="{y-38}" fill="{tcol}" font-size="13" text-anchor="middle">{tag}</text>')
     # ตัวละครเดินจาก START มาหยุดที่ด่านถัดไป (ฝึกงาน) แล้ววนใหม่
-    b.append(f'<g>{sprite(-24, -112, 6)}<animateMotion dur="8s" repeatCount="indefinite" path="{done}" '
+    b.append(f'<g>{mascot("front", -30, -134, 60, 69)}<animateMotion dur="8s" repeatCount="indefinite" path="{done}" '
              f'keyPoints="0;0;1;1" keyTimes="0;0.08;0.85;1" calcMode="linear"/></g>')
     return svg(W, H, "".join(b), "Career roadmap: cleared Start 2025, study sites, Trading Cooldown, Laan Chuay Aan; "
                                  "next internship (Backend/AI), then level up, co-op, goal Junior AI/Backend Engineer; side quest cybersecurity")
