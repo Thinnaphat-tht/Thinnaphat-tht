@@ -25,17 +25,12 @@
 
 <img src="assets/sec-stack.svg" alt="$ cat stack.txt" width="100%">
 
-<p>
-  <img src="https://img.shields.io/badge/Python-0D1117?style=for-the-badge&logo=python&logoColor=3FB950" alt="Python">
-  <img src="https://img.shields.io/badge/Java-0D1117?style=for-the-badge&logo=openjdk&logoColor=3FB950" alt="Java">
-  <img src="https://img.shields.io/badge/JavaScript-0D1117?style=for-the-badge&logo=javascript&logoColor=3FB950" alt="JavaScript">
-  <img src="https://img.shields.io/badge/HTML5-0D1117?style=for-the-badge&logo=html5&logoColor=3FB950" alt="HTML5">
-  <img src="https://img.shields.io/badge/CSS3-0D1117?style=for-the-badge&logo=css3&logoColor=3FB950" alt="CSS3">
-  <img src="https://img.shields.io/badge/Node.js-0D1117?style=for-the-badge&logo=nodedotjs&logoColor=3FB950" alt="Node.js">
-  <img src="https://img.shields.io/badge/FastAPI-0D1117?style=for-the-badge&logo=fastapi&logoColor=3FB950" alt="FastAPI">
-  <img src="https://img.shields.io/badge/Git-0D1117?style=for-the-badge&logo=git&logoColor=3FB950" alt="Git">
-  <img src="https://img.shields.io/badge/Packet_Tracer-0D1117?style=for-the-badge&logo=cisco&logoColor=3FB950" alt="Cisco Packet Tracer">
-  <img src="https://img.shields.io/badge/Wireshark-0D1117?style=for-the-badge&logo=wireshark&logoColor=3FB950" alt="Wireshark">
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=python,java,js,html,css,nodejs,fastapi,mysql,r,git&theme=dark&perline=10" alt="Python, Java, JavaScript, HTML, CSS, Node.js, FastAPI, SQL (MySQL), R, Git">
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Cisco_Packet_Tracer-1BA0D7?style=for-the-badge&logo=cisco&logoColor=white" alt="Cisco Packet Tracer">
+  <img src="https://img.shields.io/badge/Wireshark-1679A7?style=for-the-badge&logo=wireshark&logoColor=white" alt="Wireshark">
 </p>
 
 <img src="assets/sec-stats.svg" alt="$ git log --stats" width="100%">
