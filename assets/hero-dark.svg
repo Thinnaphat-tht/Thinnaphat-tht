@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320">
+  <rect width="1200" height="320" rx="24" fill="#0F1B2D"/>
+  <circle cx="1080" cy="40" r="140" fill="#17304F"/>
+  <circle cx="1150" cy="290" r="90" fill="#3A2A10"/>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="18" fill="#AFC0D6" opacity="0.55">
+    <text x="900" y="150">&gt; build</text>
+    <text x="900" y="180">&gt; learn</text>
+    <text x="900" y="210">&gt; ship_</text>
+  </g>
+  <rect x="64" y="70" width="8" height="150" rx="4" fill="#FFB627"/>
+  <text x="96" y="122" font-family="'Segoe UI', Inter, Arial, sans-serif" font-size="26" fill="#AFC0D6">Hi, I'm</text>
+  <text x="96" y="184" font-family="'Segoe UI', Inter, Arial, sans-serif" font-size="64" font-weight="700" fill="#F4F7FB">Thinnaphat</text>
+  <text x="96" y="222" font-family="'Segoe UI', Inter, Arial, sans-serif" font-size="22" fill="#AFC0D6">Digital Science &amp; Technology · ICT, Mahidol University</text>
+  <g font-family="'Segoe UI', Inter, Arial, sans-serif" font-size="16" fill="#F4F7FB">
+    <rect x="96" y="246" width="118" height="34" rx="17" fill="#162842" stroke="#2B4468"/><text x="155" y="268" text-anchor="middle">LINE bots</text>
+    <rect x="224" y="246" width="150" height="34" rx="17" fill="#162842" stroke="#2B4468"/><text x="299" y="268" text-anchor="middle">Study websites</text>
+    <rect x="384" y="246" width="176" height="34" rx="17" fill="#162842" stroke="#2B4468"/><text x="472" y="268" text-anchor="middle">Minecraft data packs</text>
+  </g>
+</svg>
