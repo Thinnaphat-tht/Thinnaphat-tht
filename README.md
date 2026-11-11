@@ -47,8 +47,3 @@
 <p>
   <img src="https://streak-stats.demolab.com?user=Thinnaphat-tht&theme=dark&hide_border=true&background=0D1117&ring=3FB950&fire=F2CC60&currStreakLabel=3FB950" alt="GitHub streak">
 </p>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Thinnaphat-tht/Thinnaphat-tht/output/snake-dark.svg">
-  <img alt="Contribution snake" src="https://raw.githubusercontent.com/Thinnaphat-tht/Thinnaphat-tht/output/snake.svg" width="100%">
-</picture>
