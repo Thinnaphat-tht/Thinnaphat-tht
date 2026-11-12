@@ -43,13 +43,3 @@
     <td align="center" width="96"><img src="https://cdn.simpleicons.org/wireshark/1679A7" width="48" height="48" alt="Wireshark"><br><sub><b>Wireshark</b></sub></td>
   </tr>
 </table>
-
-<img src="assets/sec-stats.svg" alt="$ git log --stats" width="100%">
-
-<p>
-  <img height="160" src="profile-summary-card-output/github_dark/1-repos-per-language.svg" alt="Repos per language">
-  <img height="160" src="profile-summary-card-output/github_dark/3-stats.svg" alt="GitHub stats">
-</p>
-<p>
-  <img src="https://streak-stats.demolab.com?user=Thinnaphat-tht&theme=dark&hide_border=true&background=0D1117&ring=3FB950&fire=F2CC60&currStreakLabel=3FB950" alt="GitHub streak">
-</p>
