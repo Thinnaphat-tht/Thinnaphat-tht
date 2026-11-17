@@ -44,4 +44,4 @@
 | `ITDS261` | Software Engineering midterm practice quiz | [▶ Play](https://thinnaphat-tht.github.io/ITDS261-Midterm-Quiz/) |
 | `ITDS261` | Quiz 2 guide: DFD, error detection, Git, unit testing | [▶ Play](https://thinnaphat-tht.github.io/ITDS261-Quiz2-Guide/) |
 
-THINNAPHAT.
+
